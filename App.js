@@ -5,6 +5,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+import Messages from './Screens/Chat/messages'
+
 
 
 const Tab = createBottomTabNavigator();
@@ -37,7 +39,7 @@ export default function App() {
     <NavigationContainer>
     <Tab.Navigator tabBarOptions={{ showLabel: false }}>
     <Tab.Screen name="Chat" 
-                component={ChatScreen}
+                component={Messages}
                 options={{
                   tabBarIcon: ()=> (<FontAwesome name={'comment'} size={30} color={'#FEC357'} />),
                 }} />
