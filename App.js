@@ -24,6 +24,9 @@ export default function App() {
     OpenSans_700Bold
 
   });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
   
   
   function ProfileScreen() {

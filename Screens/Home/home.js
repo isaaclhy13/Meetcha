@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect, useCallback, useRef } from 'rea
 import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, } from 'react-native'
 import TouchableScale from 'react-native-touchable-scale';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import * as Animatable from 'react-native-animatable';
+
 
 
 var WIDTH = Dimensions.get('window').width;
@@ -9,8 +11,12 @@ var HEIGHT = Dimensions.get('window').height;
 export default function home(){
     const connectY = useState(new Animated.Value(0))[0];
     const connectSize = useState(new Animated.Value(1))[0];
-    const searchingTextOpacity = useState(new Animated.Value(1))[0];
-    const [connect, setConnet] = useState(false);
+    const searchingTextOpacity = useState(new Animated.Value(0))[0];
+    const searchingAnim = {
+      0: {translateY:-50},
+      1: {translateY: 0},
+    }
+    const [connect, setConnet] = useState();
     const connectAnim = () =>{
       if(connect == false){
         Animated.parallel([
@@ -57,14 +63,14 @@ export default function home(){
   
     return (
       <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
-        <View style={{ flex: 1, justifyContent:'center'}}>
+        <View style={{ flex: 1,justifyContent:'center'}}>
           <View style={{position:'absolute',top:0, width:WIDTH, height:HEIGHT*0.1, justifyContent:'center'}}>
             <FontAwesome name = 'bars' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
           </View>
         
-           
-            <Animated.Text style={{fontSize:25, color:'#FEC357', fontFamily:'OpenSans_700Bold', position:'absolute', alignSelf:'center',opacity: searchingTextOpacity}}>Searching...</Animated.Text>
-            
+         
+            <Animatable.Text useNativeDriver={true} animation='pulse' direction="alternate" easing='ease-in-out' iterationCount={'infinite'} delay={50} style={{fontSize:30, color:'#FEC357', fontFamily:'OpenSans_700Bold', position:'absolute', alignSelf:'center',opacity: searchingTextOpacity}}>Searching...</Animatable.Text>
+          
            
            
             <Animated.View  style={{height:140, width:140, marginTop: connectY, alignSelf:'center'}} >
