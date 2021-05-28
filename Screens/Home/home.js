@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, } from 'react-native'
-import TouchableScale from 'react-native-touchable-scale';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 
@@ -9,58 +8,75 @@ import * as Animatable from 'react-native-animatable';
 var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
 export default function home(){
-    const connectY = useState(new Animated.Value(0))[0];
-    const connectSize = useState(new Animated.Value(1))[0];
-    const searchingTextOpacity = useState(new Animated.Value(0))[0];
-    const searchingAnim = {
-      0: {translateY:-50},
-      1: {translateY: 0},
+  //Timer 
+  const [time, setTime] = useState(0);
+  const [timerOn, setTimerOn] = useState(false);
+
+  useEffect(()=>{
+    var interval = null;
+    if(timerOn){
+      interval = setInterval(()=>{
+        setTime(time => time +1)
+      }, 1000)
     }
-    const [connect, setConnet] = useState();
-    const connectAnim = () =>{
-      if(connect == false){
-        Animated.parallel([
-          Animated.spring(connectY,{
-            toValue: HEIGHT*0.6,
-            duration:300,
-            useNativeDriver: false
-          }),
-          Animated.timing(connectSize,{
-            toValue:0.5,
-            duration:300,
-            useNativeDriver: true
-          }),
-          Animated.timing(searchingTextOpacity,{
-            toValue:1,
-            duration:250,
-            useNativeDriver: true
-          })
-        
+    else{
+      clearInterval(interval)
+    }
+    return () => clearInterval(interval);
+  },[timerOn])
+
+  const connectY = useState(new Animated.Value(0))[0]; //Up and down animation of the connect View 
+  const connectSize = useState(new Animated.Value(1))[0]; //The size scaling animation of the Connect View 
+  const searchingTextOpacity = useState(new Animated.Value(0))[0];  //The opacity of the view Containing 'Seaching...' and stopWatch
+  const [connect, setConnet] = useState(false); //false if user haven't connect 
+  const connectAnim = () =>{
+    if(connect == false){
+      Animated.parallel([
+        Animated.spring(connectY,{
+          toValue: HEIGHT*0.6,
+          duration:300,
+          useNativeDriver: false
+        }),
+        Animated.timing(connectSize,{
+          toValue:0.5,
+          duration:300,
+          useNativeDriver: true
+        }),
+        Animated.timing(searchingTextOpacity,{
+          toValue:1,
+          duration:250,
+          useNativeDriver: true
+        })
         ]).start()
         setConnet(true);
-      }
-      else{
-        Animated.parallel([
-          Animated.timing(connectY,{
-            toValue: 0,
-            duration:300,
-            useNativeDriver: false
-          }),
-          Animated.timing(connectSize,{
-            toValue:1,
-            duration:300,
-            useNativeDriver: true
-          }),
-          Animated.timing(searchingTextOpacity,{
-            toValue:0,
-            duration:150,
-            useNativeDriver: true
-          })
-        ]).start()
-        setConnet(false);
+        setTimerOn(true);
+    }
+    else{
+      Animated.parallel([
+        Animated.timing(connectY,{
+          toValue: 0,
+          duration:300,
+          useNativeDriver: false
+        }),
+        Animated.timing(connectSize,{
+          toValue:1,
+          duration:300,
+          useNativeDriver: true
+        }),
+        Animated.timing(searchingTextOpacity,{
+          toValue:0,
+          duration:150,
+          useNativeDriver: true
+        })
+      ]).start()
+
+      //Reset Timer 
+      setConnet(false);
+      setTimerOn(false);
+      setTime(0);
       }
     } 
-  
+
     return (
       <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
         <View style={{ flex: 1,justifyContent:'center'}}>
@@ -68,12 +84,16 @@ export default function home(){
             <FontAwesome name = 'bars' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
           </View>
         
-         
-            <Animatable.Text useNativeDriver={true} animation='pulse' direction="alternate" easing='ease-in-out' iterationCount={'infinite'} delay={50} style={{fontSize:30, color:'#FEC357', fontFamily:'OpenSans_700Bold', position:'absolute', alignSelf:'center',opacity: searchingTextOpacity}}>Searching...</Animatable.Text>
+      
+          <Animated.View style={{position:'absolute', alignSelf:'center',alignItems:'center', opacity: searchingTextOpacity}}>
+            <Animatable.Text useNativeDriver={true} animation='pulse' direction="alternate" easing='ease-in-out' iterationCount={'infinite'} duration={1000}
+            style={{fontSize:30, color:'#FEC357', fontFamily:'OpenSans_700Bold'}}>Searching...
+            </Animatable.Text>
+            <Text style={{fontSize:20, color:'#FEC357', fontFamily:'OpenSans_400Regular'}}>{Math.floor(parseInt(time/60).toFixed(0))}:{(Math.floor(parseInt(time/10)))%6}{parseInt(time%10)}</Text>
+          </Animated.View>
+        
           
-           
-           
-            <Animated.View  style={{height:140, width:140, marginTop: connectY, alignSelf:'center'}} >
+          <Animated.View  style={{height:140, width:140, marginTop: connectY, alignSelf:'center'}} >
             <TouchableOpacity  activeOpacity={0.7} onPress={connectAnim} style={[{transform:[{scale:connectSize,} ]}, {backgroundColor: connect ? '#E0E0E0' :'#FEC357',height:140, width:140,borderRadius:70,justifyContent:'center', alignItems:'center',}]}>
               {connect ?
                 <FontAwesome name='times' size={70} color={'white'} />
@@ -81,8 +101,7 @@ export default function home(){
                 <Text style={{fontSize:25, color:'white', fontFamily:'OpenSans_700Bold'}}>Conenect</Text>
               }
             </TouchableOpacity>
-            </Animated.View>
-           
+          </Animated.View> 
         </View>
       </SafeAreaView>
       );

@@ -14,6 +14,9 @@ import Messages from './Screens/Chat/messages'
 //Home Page 
 import Home from './Screens/Home/home'
 
+//Profile page 
+import Profile from './Screens/Profile/profile'
+
 
 
 const Tab = createBottomTabNavigator();
@@ -28,14 +31,6 @@ export default function App() {
     return <AppLoading />;
   }
   
-  
-  function ProfileScreen() {
-    return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Profile!</Text>
-      </View>
-    );
-  }
 
   return (
     <NavigationContainer>
@@ -51,7 +46,7 @@ export default function App() {
                     tabBarIcon: ()=> (<FontAwesome name={'home'} size={40} color={'#FEC357'} />),
                   }} />
       <Tab.Screen name="Profile" 
-                  component={ProfileScreen}
+                  component={Profile}
                   options={{
                     tabBarIcon: ()=> (<FontAwesome name={'user'} size={30} color={'#FEC357'} />),
                   }} />
