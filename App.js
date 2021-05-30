@@ -5,7 +5,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AppLoading from 'expo-app-loading';
-import { useFonts, Inter_900Black, OpenSans_700Bold} from '@expo-google-fonts/dev';
+import { useFonts, Inter_900Black, OpenSans_700Bold, OpenSans_400Regular} from '@expo-google-fonts/dev';
 
 
 //Message Page
@@ -24,7 +24,8 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   let [fontsLoaded] = useFonts({
     Inter_900Black,
-    OpenSans_700Bold
+    OpenSans_700Bold,
+    OpenSans_400Regular
 
   });
   if (!fontsLoaded) {
