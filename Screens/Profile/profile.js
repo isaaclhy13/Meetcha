@@ -1,12 +1,17 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
-import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, } from 'react-native'
+import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, Button} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Modal from 'react-native-modal';
+
 
 
 var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
+
+
 export default function profile(){
-    
+    const [editModal, setEditModal] = useState(false);
+
     return(
         <View style={{backgroundColor:'#FEC357'}}>
             <SafeAreaView style={{flex:1, backgroundColor:'white' }}>
@@ -20,7 +25,7 @@ export default function profile(){
                 <View style={{height: HEIGHT*0.15,width:WIDTH, backgroundColor:'#FEC357', borderBottomLeftRadius:50, borderBottomRightRadius:50, flexDirection:'row',
                 justifyContent:'space-evenly', alignItems:'center', position:'absolute', top:0, paddingTop: HEIGHT*0.05, 
                 shadowOffset:{width:0,height:10}, shadowRadius:20, shadowColor:'black', shadowOpacity:0.1}}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={()=> setEditModal(true)}>
                         <FontAwesome name='edit' size={40} color='white'/>
                     </TouchableOpacity>
                     <View style={{justifyContent:'center'}}>
@@ -31,8 +36,16 @@ export default function profile(){
                         <FontAwesome name='bars' size={40} color='white'/>  
                     </TouchableOpacity>
                 </View>
-              
-        </SafeAreaView>
+                <Modal hasBackdrop={true} isVisible={editModal} animationInTiminG={200} style={{felx:1, alignSelf:'center'}}>
+                    <View style={{width:WIDTH*0.9, height:HEIGHT*0.8, backgroundColor:'white', borderRadius:25, alignItems:'center'}}>
+                        <Text style={{fontSize:20, fontFamily:'OpenSans_700Bold', color:'#FEC357',marginTop:HEIGHT*0.05}}>Edit Profile</Text>
+
+                        <TouchableOpacity onPress={()=>setEditModal(false)} style={{position:'absolute', bottom:10}}>
+                            <Text>Close</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Modal>
+             </SafeAreaView>
         </View>
     )
 }
