@@ -2,7 +2,6 @@ import React, { useState, useContext, useEffect, useCallback, useRef } from 'rea
 import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, Button} from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
-import RNPickerSelect from 'react-native-picker-select';
 
 
 
