@@ -15,7 +15,7 @@ function Message({item}) {
         <ListItem key={item.name} style={{ backgroundColor: 'orange'}}>
             <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }}>
                 <Avatar rounded size="medium" containerStyle={{marginRight: 10}} source={{ uri: item.avatar_url }}/>
-                <ListItem.Content style={{}}>
+                <ListItem.Content style={{justifyContent: 'space-evenly'}}>
                     <ListItem.Title style={{fontWeight: 'bold'}}>{item.name}</ListItem.Title>
                     <ListItem.Subtitle style={{ color: 'gray' }}>{item.subtitle}</ListItem.Subtitle>
                 </ListItem.Content>
@@ -29,12 +29,12 @@ export default function Messages() {
     const [convos, setConvos] = useState([{
         name: 'Amy Farha',
         avatar_url: 'https://i.pinimg.com/originals/6a/2f/67/6a2f67c1823fe82035f53db68fe27666.png',
-        subtitle: 'Vice President'
+        subtitle: "Hey I'm Amanda"
     },
     {
         name: 'Chris Jackson',
         avatar_url: 'http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/neutral-face.png',
-        subtitle: 'Vice Chairman'
+        subtitle: "Hey I'm Chris"
     }])
 
 

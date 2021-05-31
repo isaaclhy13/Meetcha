@@ -8,10 +8,10 @@ export default function Message({item}) {
 
     return (
         <ListItem key={item.name} style={{ backgroundColor: 'orange'}}>
-            <TouchableOpacity style={{ flex: 1, flexDirection: 'row', backgroundColor: 'red' }}>
-                <Avatar rounded source={{ uri: item.avatar_url }} />
-                <ListItem.Content style={{ backgroundColor: 'black' }}>
-                    <ListItem.Title>{item.name}</ListItem.Title>
+            <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }}>
+                <Avatar rounded size="medium" containerStyle={{marginRight: 10}} source={{ uri: item.avatar_url }}/>
+                <ListItem.Content style={{justifyContent: 'space-evenly'}}>
+                    <ListItem.Title style={{fontWeight: 'bold'}}>{item.name}</ListItem.Title>
                     <ListItem.Subtitle style={{ color: 'gray' }}>{item.subtitle}</ListItem.Subtitle>
                 </ListItem.Content>
                 <ListItem.Chevron />
