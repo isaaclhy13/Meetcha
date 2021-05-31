@@ -7,7 +7,7 @@ import { ListItem, Avatar, Overlay } from 'react-native-elements'
 export default function Message({item, navigation}) {
     return (
         <ListItem>
-            <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={()=> navigation.navigate('Conversation')}>
+            <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={()=> navigation.navigate('Conversation', {data: item})}>
                 <Avatar rounded size="medium" containerStyle={{marginRight: 10}} source={{ uri: item.avatar_url }}/>
                 <ListItem.Content style={{justifyContent: 'space-evenly'}}>
                     <ListItem.Title style={{fontWeight: 'bold'}}>{item.name}</ListItem.Title>
