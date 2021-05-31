@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -19,6 +18,9 @@ import Home from './Screens/Home/home'
 //Profile page 
 import Profile from './Screens/Profile/profile'
 
+//test
+import signup from './Screens/Login/signup'
+
 
 const Stack = createStackNavigator();
 function chatStack() {
@@ -26,6 +28,15 @@ function chatStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Messages" component={Messages} />
       <Stack.Screen name="Conversation" component={Conversation} />
+    </Stack.Navigator>
+  );
+}
+
+function homeStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="home" component={Home} />
+      <Stack.Screen name="signup" component={signup} />
     </Stack.Navigator>
   );
 }
@@ -53,7 +64,7 @@ export default function App() {
             tabBarIcon: () => (<FontAwesome name={'comment'} size={30} color={'#FEC357'} />),
           }} />
         <Tab.Screen name="Home"
-          component={Home}
+          component={homeStack}
           options={{
             tabBarIcon: () => (<FontAwesome name={'home'} size={40} color={'#FEC357'} />),
           }} />
