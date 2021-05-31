@@ -50,7 +50,7 @@ export default function profile(){
                     <View style={{width:WIDTH, height:HEIGHT*0.9, backgroundColor:'white', borderRadius:25, alignItems:'center',position:'absolute',bottom:0}}>
                         <View style={{flexDirection:'row', justifyContent:'space-evenly', width:WIDTH, alignItems:'center'}}>
                             <TouchableOpacity onPress={()=>setEditModal(false)} style={{marginTop:HEIGHT*0.02}}>
-                                <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'black'}}>Cancel</Text>
+                                <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454'}}>Cancel</Text>
                             </TouchableOpacity>
                             <Text style={{fontSize:20, fontFamily:'OpenSans_700Bold', color:'#FEC357',marginTop:HEIGHT*0.02}}>Edit Profile</Text>
                             <Text style={{fontSize:15, fontFamily:'OpenSans_700Bold', color:'#FEC357',marginTop:HEIGHT*0.02}}>Done</Text>
@@ -63,7 +63,7 @@ export default function profile(){
                         <View style={{width:WIDTH*0.8, marginTop:HEIGHT*0.02, borderWidth:0.5, borderColor:'#e0e0e0'}} />
                         <View style={{height:HEIGHT*0.035,width:WIDTH*0.8, marginTop:HEIGHT*0.03, flexDirection:'row'}}>
                             <View style={{height:HEIGHT*0.035,width:WIDTH*0.3, alignItems:'flex-start',justifyContent:'center'}}>
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'black', fontSize:18}}>First Name</Text>
+                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:18}}>First Name</Text>
                             </View>
                             <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, marginLeft:WIDTH*0.1,alignItems:'flex-end',justifyContent:'center'}}>
                                 <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, borderRadius:20, borderWidth:1, borderColor:'#e0e0e0'}}>
@@ -74,7 +74,7 @@ export default function profile(){
 
                         <View style={{height:HEIGHT*0.035,width:WIDTH*0.8, marginTop:HEIGHT*0.02, flexDirection:'row'}}>
                             <View style={{height:HEIGHT*0.035,width:WIDTH*0.3, alignItems:'flex-start',justifyContent:'center',}}>
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'black', fontSize:18}}>Last Name</Text>
+                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:18}}>Last Name</Text>
                             </View>
                             <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, marginLeft:WIDTH*0.1,alignItems:'flex-end',justifyContent:'center'}}>
                                 <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, borderRadius:20, borderWidth:1, borderColor:'#e0e0e0'}}>
@@ -85,7 +85,7 @@ export default function profile(){
 
                         <View style={{height:HEIGHT*0.035,width:WIDTH*0.8, marginTop:HEIGHT*0.02, flexDirection:'row'}}>
                             <View style={{height:HEIGHT*0.035,width:WIDTH*0.3, alignItems:'flex-start',justifyContent:'center',}}>
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'black', fontSize:18}}>Age</Text>
+                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:18}}>Age</Text>
                             </View>
                             <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, marginLeft:WIDTH*0.1,alignItems:'flex-end',justifyContent:'center'}}>
                                 <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, borderRadius:20, borderWidth:1, borderColor:'#e0e0e0'}}>
@@ -95,7 +95,7 @@ export default function profile(){
                         </View>
                         <View style={{height:HEIGHT*0.035,width:WIDTH*0.8, marginTop:HEIGHT*0.02, flexDirection:'row'}}>
                             <View style={{height:HEIGHT*0.035,width:WIDTH*0.3, alignItems:'flex-start',justifyContent:'center',}}>
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'black', fontSize:18}}>About me </Text>
+                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:18}}>About me </Text>
                             </View>
                             <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, marginLeft:WIDTH*0.1,alignItems:'flex-end',justifyContent:'center'}}>
                                 <View style={{height:HEIGHT*0.035, width:WIDTH*0.4, borderRadius:20, borderWidth:1, borderColor:'#e0e0e0'}}>
@@ -118,7 +118,7 @@ export default function profile(){
                         renderItem = {({item})=>(
                             <TouchableOpacity style={{width:WIDTH*0.92, height:HEIGHT*0.06,borderBottomWidth:0.5,  borderBottomColor:'#e0e0e0', flexDirection:'row', alignItems:'center' }}>
                                 <FontAwesome name={item.icon} color='#e0e0e0' size={30} />
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#b5b5b5', fontSize:15, marginLeft:WIDTH*0.075}}>{item.name}</Text>
+                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:15, marginLeft:WIDTH*0.075}}>{item.name}</Text>
                             </TouchableOpacity>
                         )}
                          />
