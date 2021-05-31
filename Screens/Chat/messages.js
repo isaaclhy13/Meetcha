@@ -2,30 +2,13 @@
 
 import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, FlatList } from 'react-native'
-import { ListItem, Avatar, Overlay } from 'react-native-elements'
 
-//import Message from './message'
+import Message from './message'
 
 var HEIGHT = Dimensions.get('window').height;
 var WIDTH = Dimensions.get('window').width;
 
-function Message({item}) {
-
-    return (
-        <ListItem key={item.name} style={{ backgroundColor: 'orange'}}>
-            <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }}>
-                <Avatar rounded size="medium" containerStyle={{marginRight: 10}} source={{ uri: item.avatar_url }}/>
-                <ListItem.Content style={{justifyContent: 'space-evenly'}}>
-                    <ListItem.Title style={{fontWeight: 'bold'}}>{item.name}</ListItem.Title>
-                    <ListItem.Subtitle style={{ color: 'gray' }}>{item.subtitle}</ListItem.Subtitle>
-                </ListItem.Content>
-                <ListItem.Chevron />
-            </TouchableOpacity>
-        </ListItem>
-    )
-}
-
-export default function Messages() {
+export default function Messages({ navigation }) {
     const [convos, setConvos] = useState([{
         name: 'Amy Farha',
         avatar_url: 'https://i.pinimg.com/originals/6a/2f/67/6a2f67c1823fe82035f53db68fe27666.png',
@@ -36,7 +19,6 @@ export default function Messages() {
         avatar_url: 'http://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/neutral-face.png',
         subtitle: "Hey I'm Chris"
     }])
-
 
     return (
         <View style={{ flex: 1, backgroundColor: '#FEC357' }}>
@@ -50,7 +32,7 @@ export default function Messages() {
                         <FlatList
                             keyExtractor={(item, index) => index}
                             data={convos}
-                            renderItem={Message}
+                            renderItem={item => Message({item: item.item, navigation})}
                         />
                     </View>
                 </View>
