@@ -57,6 +57,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      
       <Tab.Navigator tabBarOptions={{ showLabel: false, style: { borderTopWidth: 0 } }}>
         <Tab.Screen name="Chat"
           component={chatStack}
@@ -74,6 +75,7 @@ export default function App() {
             tabBarIcon: () => (<FontAwesome name={'user'} size={30} color={'#FEC357'} />),
           }} />
       </Tab.Navigator>
+      
     </NavigationContainer>
   );
 }
