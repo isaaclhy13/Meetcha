@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect, useCallback, useRef } from 'rea
 import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, } from 'react-native'
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
+import { UserContext } from '../Utils/context'
+
 
 
 
@@ -11,6 +13,8 @@ export default function home({navigation}){
   //Timer 
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
+  const [user, setUser] = useContext(UserContext);
+
 
   useEffect(()=>{
     var interval = null;
@@ -80,7 +84,7 @@ export default function home({navigation}){
     return (
       <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
         <View style={{ flex: 1,justifyContent:'center'}}>
-            <TouchableOpacity onPress={()=>navigation.navigate('signup')} style={{position:'absolute',top:0, width:WIDTH, height:HEIGHT*0.1, justifyContent:'center'}}> 
+            <TouchableOpacity onPress={()=>setUser(null)} style={{position:'absolute',top:0, width:WIDTH, height:HEIGHT*0.1, justifyContent:'center'}}> 
               <FontAwesome name = 'bars' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
             </TouchableOpacity>
         

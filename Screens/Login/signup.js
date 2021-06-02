@@ -1,11 +1,13 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
-import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, Button } from 'react-native'
+import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, } from 'react-native'
 import { firebase } from '../../config'
 import { UserContext } from '../Utils/context'
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 var HEIGHT = Dimensions.get('window').height;
 var WIDTH = Dimensions.get('window').width;
-export default function signup() {
+export default function signup({navigation}) {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [user, setUser] = useContext(UserContext);
@@ -41,72 +43,34 @@ export default function signup() {
     }
     return (
         <SafeAreaView style={{ justifyContent: 'center', height: HEIGHT, width: WIDTH }}>
-
-            <TextInput
-                placeholder='Email'
-                placeholderTextColor="#aaa"
-                onChangeText={(text) => setEmail(text)}
-                value={email}
-                underlineColorAndroid="transparent"
-                autoCapitalize="none"
-                style={styles.input}
-                color={'black'}
-
-            />
-            <TextInput
-                placeholder='Password'
-                placeholderTextColor="#aaa"
-                onChangeText={(text) => setPassword(text)}
-                value={password}
-                underlineColorAndroid="transparent"
-                autoCapitalize="none"
-                style={styles.input}
-                color={'black'}
-
-            />
-            <TouchableOpacity onPress={onSignUp} style={{ width: 100, height: 30, borderWidth: 1 }}>
-                <Text>Sign up</Text>
-            </TouchableOpacity>
-
-
-
+            <LinearGradient colors={[ 'rgba(255,211,130,1)','rgba(254,195,87,1)','rgba(254,195,87,1)']} style={styles.gradient}>
+                <View>
+                    <Text style={{fontFamily:'Roboto_700Bold', fontSize:45, color:'white'}}>Meetcha</Text>
+                </View>
+                <View style={{ alignItems:'center', position:'absolute', bottom:HEIGHT*0.05}}>
+                    <Text style={{color:'white', fontFamily:'OpenSans_400Regular', fontSize:15 }}>Terms and Services Privacy</Text>
+                    <TouchableOpacity activeOpacity={0.7} style={{width:WIDTH*0.82, height: HEIGHT*0.07, borderRadius:40, backgroundColor:'white', justifyContent:'center',
+                    alignItems:'center',marginTop:HEIGHT*0.01}}>
+                        <Text style={{fontFamily:'OpenSans_600SemiBold', color:'#545454'}}>LOGIN</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>navigation.navigate('signupEmail')} 
+                    activeOpacity={0.7} style={{width:WIDTH*0.82, height: HEIGHT*0.07, borderRadius:40, borderWidth:3, borderColor:'white', justifyContent:'center',
+                    alignItems:'center', marginTop:HEIGHT*0.015}}>
+                        <Text style={{fontFamily:'OpenSans_700Bold', color:'white'}}>SIGNUP</Text>
+                    </TouchableOpacity>
+                    <Text style={{fontFamily:'Roboto_700Bold', fontSize:15, color:'white',marginTop:HEIGHT*0.02}}>Trouble signing in?</Text>
+                </View>
+            </LinearGradient>
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
-    searchSection: {
-        height: 40,
-        flexDirection: 'row',
-        alignItems: 'center',
-        width: 350,
-        backgroundColor: '#fff',
-        //borderRadius: 10,
-        borderColor: '#FFF',
-        borderWidth: 1,
-        borderRadius: 10
-    },
-    searchIcon: {
-        padding: 5
-    },
-    input: {
-        fontSize: 20,
-        color: '#aaa',
-
-        borderWidth: 1,
-        width: 300,
-        height: 30
-
-    },
-
-    login: {
-
-    },
-
-    sign: {
-        color: '#aaa',
-        marginTop: 15,
-        flexDirection: 'row',
-        alignSelf: 'center'
-    }
+   gradient:{
+       position:'absolute',
+       height:HEIGHT,
+       width:WIDTH,
+       justifyContent:'center',
+       alignItems:'center'
+   }
 })
 

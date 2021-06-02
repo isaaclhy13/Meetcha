@@ -5,8 +5,12 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AppLoading from 'expo-app-loading';
-import { useFonts, Inter_900Black, OpenSans_700Bold, OpenSans_400Regular } from '@expo-google-fonts/dev';
+import { useFonts, Inter_900Black, OpenSans_700Bold, OpenSans_400Regular, Roboto_700Bold, OpenSans_600SemiBold } from '@expo-google-fonts/dev';
 import { UserContext } from './Screens/Utils/context'
+import { TransitionPresets } from '@react-navigation/stack';
+import { CardStyleInterpolators } from '@react-navigation/stack';
+
+
 
 //Message Page
 import Messages from './Screens/Chat/messages'
@@ -21,6 +25,14 @@ import Profile from './Screens/Profile/profile'
 //test
 import signup from './Screens/Login/signup'
 import TEST from './Screens/Login/TEST'
+import signupEmail from './Screens/Login/signupEmail'
+import signupPassword from './Screens/Login/signupPassword'
+import signupFirstName from './Screens/Login/signupFirstName'
+import signupLastName from './Screens/Login/signupLastName'
+import signupGender from './Screens/Login/signupGender'
+import signupProfilePic from './Screens/Login/signupProfilePic'
+import signupPhotoAlbum from './Screens/Login/signupPhotoAlbum'
+
 
 
 const Stack = createStackNavigator();
@@ -74,7 +86,10 @@ export default function App() {
   let [fontsLoaded] = useFonts({
     Inter_900Black,
     OpenSans_700Bold,
-    OpenSans_400Regular
+    OpenSans_400Regular,
+    Roboto_700Bold,
+    OpenSans_600SemiBold
+    
 
   });
   if (!fontsLoaded) {
@@ -103,6 +118,18 @@ export default function App() {
             :
             <>
               <Stack.Screen name="signup" component={signup} />
+              <Stack.Screen name="signupEmail" component={signupEmail} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}} />
+              <Stack.Screen name="signupPassword" component={signupPassword} />
+              <Stack.Screen name="signupFirstName" component={signupFirstName} />
+              <Stack.Screen name="signupLastName" component={signupLastName} />
+              <Stack.Screen name="signupGender" component={signupGender} />
+              <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
+              <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
+
+
+
+
+
             </>
           }
 
