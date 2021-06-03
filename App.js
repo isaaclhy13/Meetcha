@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import AppLoading from 'expo-app-loading';
-import { useFonts, Inter_900Black, OpenSans_700Bold, OpenSans_400Regular, Roboto_700Bold, OpenSans_600SemiBold } from '@expo-google-fonts/dev';
+import { useFonts, Inter_900Black, OpenSans_700Bold, OpenSans_400Regular, Roboto_700Bold, OpenSans_600SemiBold, Cabin_600SemiBold } from '@expo-google-fonts/dev';
 import { UserContext } from './Screens/Utils/context'
 import { TransitionPresets } from '@react-navigation/stack';
 import { CardStyleInterpolators } from '@react-navigation/stack';
@@ -21,6 +21,9 @@ import Home from './Screens/Home/home'
 
 //Profile page 
 import Profile from './Screens/Profile/profile'
+import profileSettings from './Screens/Profile/profileSettings'
+
+import changePassword from './Screens/Settings/changePassword'
 
 //test
 import signup from './Screens/Login/signup'
@@ -32,8 +35,9 @@ import signupLastName from './Screens/Login/signupLastName'
 import signupGender from './Screens/Login/signupGender'
 import signupProfilePic from './Screens/Login/signupProfilePic'
 import signupPhotoAlbum from './Screens/Login/signupPhotoAlbum'
+import login from './Screens/Login/login'
 
-
+var HEIGHT = Dimensions.get('window').height;
 
 const Stack = createStackNavigator();
 function chatStack() {
@@ -53,7 +57,6 @@ function homeStack() {
     </Stack.Navigator>
   );
 }
-
 function Main() {
   return (
     <Tab.Navigator initialRouteName={'Home'} tabBarOptions={{ showLabel: false, style: { borderTopWidth: 0 } }}>
@@ -88,7 +91,8 @@ export default function App() {
     OpenSans_700Bold,
     OpenSans_400Regular,
     Roboto_700Bold,
-    OpenSans_600SemiBold
+    OpenSans_600SemiBold,
+    Cabin_600SemiBold
     
 
   });
@@ -110,6 +114,10 @@ export default function App() {
             user.onboard ?
               <>
                 <Stack.Screen name='Main' component={Main} />
+                <Stack.Screen name='profileSettings' component={profileSettings} />
+                <Stack.Screen name="changePassword" component={changePassword} />
+
+
               </>
               :
               <>
@@ -125,6 +133,8 @@ export default function App() {
               <Stack.Screen name="signupGender" component={signupGender} />
               <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
               <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
+              <Stack.Screen name="login" component={login} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}}/>
+
 
 
 

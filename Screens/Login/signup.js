@@ -41,6 +41,14 @@ export default function signup({navigation}) {
                 alert(error)
             });
     }
+    async function signIn(phoneNumber) {
+        try {
+          const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
+          setConfirm(confirmation);
+        } catch (error) {
+          alert(error);
+        }
+      }
     return (
         <SafeAreaView style={{ justifyContent: 'center', height: HEIGHT, width: WIDTH }}>
             <LinearGradient colors={[ 'rgba(255,211,130,1)','rgba(254,195,87,1)','rgba(254,195,87,1)']} style={styles.gradient}>
@@ -49,7 +57,7 @@ export default function signup({navigation}) {
                 </View>
                 <View style={{ alignItems:'center', position:'absolute', bottom:HEIGHT*0.05}}>
                     <Text style={{color:'white', fontFamily:'OpenSans_400Regular', fontSize:15 }}>Terms and Services Privacy</Text>
-                    <TouchableOpacity activeOpacity={0.7} style={{width:WIDTH*0.82, height: HEIGHT*0.07, borderRadius:40, backgroundColor:'white', justifyContent:'center',
+                    <TouchableOpacity onPress={()=>navigation.navigate('login')} activeOpacity={0.7} style={{width:WIDTH*0.82, height: HEIGHT*0.07, borderRadius:40, backgroundColor:'white', justifyContent:'center',
                     alignItems:'center',marginTop:HEIGHT*0.01}}>
                         <Text style={{fontFamily:'OpenSans_600SemiBold', color:'#545454'}}>LOGIN</Text>
                     </TouchableOpacity>

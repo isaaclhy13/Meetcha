@@ -15,19 +15,19 @@ export default function Conversation({ route, navigation }) {
     // useEffect(() => {setData(route.params.data); console.log(route.params.data)})
 
     return (
-        <View style={{ flex: 1, backgroundColor: '#FEC357' }}>
+        <View style={{ flex: 1, backgroundColor: 'white' }}>
             <SafeAreaView style={{ flex: 1 }}>
                 <View style={{ flex: 1, backgroundColor: '#fff' }}>
-                    <View style={{ height: HEIGHT * 0.1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FEC357', padding: 10 }}>
+                    <View style={{ height: HEIGHT * 0.1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 10, borderBottomWidth:0.5, borderColor:'#e0e0e0' }}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <FontAwesome name='sign-out' size={35} color='#fff' style={{ transform: [{ rotateY: '180deg' }] }} />
+                            <FontAwesome name='sign-out' size={30} color='black' style={{ transform: [{ rotateY: '180deg' }] }} />
                         </TouchableOpacity>
-                        <View style={{flexDirection: 'row', justifyContent: 'flex-start'}}>
+                        <View style={{flexDirection: 'row',alignItems:'center'}}>
                             <Avatar rounded size="medium" source={{ uri: data.avatar_url }} />
-                            <Text style={{ marginLeft: 10, color: '#fff', fontSize: 30, fontFamily: 'OpenSans_700Bold' }}>{data.name}</Text>
+                            <Text style={{ marginLeft: 10, color: 'black', fontSize: 25, fontFamily: 'Cabin_600SemiBold' }}>{data.name}</Text>
                         </View>
                         <TouchableOpacity>
-                            <FontAwesome name='info-circle' size={35} color='#fff' style={{}} />
+                            <FontAwesome name='info-circle' size={30} color='#e0e0e0' style={{}} />
                         </TouchableOpacity>
                     </View>
 

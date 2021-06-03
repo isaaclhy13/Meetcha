@@ -46,9 +46,9 @@ export default function signupPassword({navigation, route}) {
                 <Text style={{fontSize:30, fontFamily:'OpenSans_600SemiBold'}}>Set your password</Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454', marginTop:HEIGHT*0.01}}>Don't share this information </Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454'}}>to anyone.</Text>
-                <TextInput autoFocus={true} onChangeText={(value)=> setPassword(value)} value={password} placeholder='Password' style={{height:HEIGHT*0.065, width:WIDTH*0.8, borderRadius:40,
+                <TextInput secureTextEntry={true} autoFocus={true} onChangeText={(value)=> setPassword(value)} value={password} placeholder='Password' style={{height:HEIGHT*0.065, width:WIDTH*0.8, borderRadius:40,
                 borderWidth:2, borderColor:'#E0E0E0', marginTop:HEIGHT*0.05, paddingLeft:WIDTH*0.05}}/>
-                <TextInput onChangeText={(value)=> setConfirmPassword(value)} value={confirmPassword} placeholder='Confirm password' style={{height:HEIGHT*0.065, width:WIDTH*0.8, borderRadius:40,
+                <TextInput secureTextEntry={true} onChangeText={(value)=> setConfirmPassword(value)} value={confirmPassword} placeholder='Confirm password' style={{height:HEIGHT*0.065, width:WIDTH*0.8, borderRadius:40,
                 borderWidth:2, borderColor:'#E0E0E0', marginTop:HEIGHT*0.02, paddingLeft:WIDTH*0.05}}/>
             </View>
             <TouchableOpacity  onPress={checkPassword} disabled={password == '' ? true : false} style={{height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: password == '' ? '#e3e3e3': '#FEC357'  , alignSelf:'center', justifyContent:'center'}}>

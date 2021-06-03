@@ -11,15 +11,16 @@ var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
 
 
-export default function profile(){
+export default function profile({navigation}){
     const [editModal, setEditModal] = useState();
-    const [profileSettingsModal, setProfileSettingsModal] = useState();
+    const [profileSettingsModal, setProfileSettingsModal] = useState(false);
 
     const settings = ([
         {name:'Change Password', icon:'lock'},
         {name:'Privacy', icon:'shield'},
         {name:'Logout', icon:'times'}
     ])
+   
 
     return(
         <View style={{backgroundColor:'#FEC357'}}>
@@ -41,8 +42,8 @@ export default function profile(){
                         <Text style={{fontFamily:'OpenSans_700Bold', fontSize:30, color:'white', alignSelf:'center'}}>Isaac</Text>
                         <Text style={{fontFamily:'OpenSans_400Regular', fontSize:15, color:'white', alignSelf:'center'}}>Male | 21</Text>
                     </View>
-                    <TouchableOpacity onPress={()=>setProfileSettingsModal(true)}>
-                        <FontAwesome name='bars' size={40} color='#0fff23'/>  
+                    <TouchableOpacity onPress={()=>navigation.navigate('profileSettings')}>
+                        <FontAwesome name='bars' size={40} color='white'/>  
                     </TouchableOpacity>
                 </View>
 
@@ -107,22 +108,10 @@ export default function profile(){
                 </Modal>
 
                 <Modal swipeDirection='down' onSwipeComplete={()=> setProfileSettingsModal(false)} hasBackdrop={true} backdropOpacity={0.8} isVisible={profileSettingsModal} animationInTiminG={200} style={{height:HEIGHT, width:WIDTH, margin: 0}}>
-                    <TouchableOpacity onPress={()=> setProfileSettingsModal(false)} style={{width:WIDTH, height:HEIGHT*0.4, }}>
+                    <TouchableOpacity onPress={()=> navigation.navigate('profileSettings')} style={{width:WIDTH, height:HEIGHT*0.4, }}>
 
                     </TouchableOpacity>
-                    <View style={{width:WIDTH, height:HEIGHT*0.6, backgroundColor:'white', borderRadius:25, alignItems:'center'}}>
-                        <FlatList
-                        data={settings}
-                        keyExtractor={()=> Math.random()*100}
-                        style={{paddingTop:HEIGHT*0.02, paddingLeft:WIDTH*0.04,paddingRight:WIDTH*0.04}}
-                        renderItem = {({item})=>(
-                            <TouchableOpacity style={{width:WIDTH*0.92, height:HEIGHT*0.06,borderBottomWidth:0.5,  borderBottomColor:'#e0e0e0', flexDirection:'row', alignItems:'center' }}>
-                                <FontAwesome name={item.icon} color='#e0e0e0' size={30} />
-                                <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:15, marginLeft:WIDTH*0.075}}>{item.name}</Text>
-                            </TouchableOpacity>
-                        )}
-                         />
-                    </View>
+                    
                 </Modal>
             </SafeAreaView>
         </View>
