@@ -36,13 +36,13 @@ export default function signupPassword({navigation, route}) {
     }
     return (
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>
-           
+           <KeyboardAvoidingView>
             <View style={{ height:HEIGHT*0.1,width:WIDTH,justifyContent:'center', paddingLeft:WIDTH*0.05}}>
                 <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <FontAwesome name='angle-left' size={40} color='#545454' />
                 </TouchableOpacity>
             </View>
-            <View style={{ width:WIDTH, height:HEIGHT*0.4,paddingLeft:WIDTH*0.1, }}>
+            <View style={{ width:WIDTH, height:HEIGHT*0.35,paddingLeft:WIDTH*0.1, }}>
                 <Text style={{fontSize:30, fontFamily:'OpenSans_600SemiBold'}}>Set your password</Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454', marginTop:HEIGHT*0.01}}>Don't share this information </Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454'}}>to anyone.</Text>
@@ -54,7 +54,7 @@ export default function signupPassword({navigation, route}) {
             <TouchableOpacity  onPress={checkPassword} disabled={password == '' ? true : false} style={{height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: password == '' ? '#e3e3e3': '#FEC357'  , alignSelf:'center', justifyContent:'center'}}>
                  <Text style={{fontSize:25, fontFamily:'OpenSans_700Bold', color: 'white', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
-           
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

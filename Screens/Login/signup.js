@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
-import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, } from 'react-native'
+import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, KeyboardAvoidingView, } from 'react-native'
 import { firebase } from '../../config'
 import { UserContext } from '../Utils/context'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -8,47 +8,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 var HEIGHT = Dimensions.get('window').height;
 var WIDTH = Dimensions.get('window').width;
 export default function signup({navigation}) {
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState();
     const [user, setUser] = useContext(UserContext);
 
-    const onSignUp = () => {
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(email, password)
-            .then((response) => {
-                const uid = response.user.uid
-                const data = {
-                    id: uid,
-                    email,
-                    onboard: false,
-                    profilePic: null,
-                    available: false,
-                    profileAlbum: [],
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        setUser(data);
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
-                alert(error)
-            });
-    }
-    async function signIn(phoneNumber) {
-        try {
-          const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-          setConfirm(confirmation);
-        } catch (error) {
-          alert(error);
-        }
-      }
+
+
     return (
         <SafeAreaView style={{ justifyContent: 'center', height: HEIGHT, width: WIDTH }}>
             <LinearGradient colors={[ 'rgba(255,211,130,1)','rgba(254,195,87,1)','rgba(254,195,87,1)']} style={styles.gradient}>

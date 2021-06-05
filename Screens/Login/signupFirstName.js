@@ -24,13 +24,13 @@ export default function signupFirstName({navigation, route}) {
     }
     return (
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>
-           
+           <KeyboardAvoidingView>
             <View style={{ height:HEIGHT*0.1,width:WIDTH,justifyContent:'center', paddingLeft:WIDTH*0.05}}>
                 <TouchableOpacity onPress={()=>navigation.goBack()}>
                     <FontAwesome name='angle-left' size={40} color='#545454' />
                 </TouchableOpacity>
             </View>
-            <View style={{ width:WIDTH, height:HEIGHT*0.3,paddingLeft:WIDTH*0.1, }}>
+            <View style={{ width:WIDTH, height:HEIGHT*0.35,paddingLeft:WIDTH*0.1, }}>
                 <Text style={{fontSize:30, fontFamily:'OpenSans_600SemiBold'}}>My First Name is </Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454', marginTop:HEIGHT*0.01}}>This shows other users  </Text>
                 <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#545454'}}>who you are.</Text>
@@ -40,7 +40,7 @@ export default function signupFirstName({navigation, route}) {
             <TouchableOpacity disabled={firstName == '' ? true : false} onPress={checkFirstName} style={{height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: firstName == '' ? '#e3e3e3' : '#FEC357', alignSelf:'center', justifyContent:'center'}}>
                  <Text style={{fontSize:25, fontFamily:'OpenSans_700Bold', color: 'white', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
-           
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }
