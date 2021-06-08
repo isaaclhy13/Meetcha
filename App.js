@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -93,8 +93,6 @@ export default function App() {
     Roboto_700Bold,
     OpenSans_600SemiBold,
     Cabin_600SemiBold
-    
-
   });
   if (!fontsLoaded) {
     return <AppLoading />;
@@ -126,14 +124,14 @@ export default function App() {
             :
             <>
               <Stack.Screen name="signup" component={signup} />
-              <Stack.Screen name="signupEmail" component={signupEmail} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}} />
+              <Stack.Screen name="signupEmail" component={signupEmail} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
               <Stack.Screen name="signupPassword" component={signupPassword} />
               <Stack.Screen name="signupFirstName" component={signupFirstName} />
               <Stack.Screen name="signupLastName" component={signupLastName} />
               <Stack.Screen name="signupGender" component={signupGender} />
               <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
               <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
-              <Stack.Screen name="login" component={login} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}}/>
+              <Stack.Screen name="login" component={login} options={{ cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS }} />
 
 
 
