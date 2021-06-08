@@ -18,6 +18,7 @@ import Conversation from './Screens/Chat/conversation'
 
 //Home Page 
 import Home from './Screens/Home/home'
+import connectFilter from './Screens/Home/connectFilter'
 
 //Profile page 
 import Profile from './Screens/Profile/profile'
@@ -25,7 +26,7 @@ import profileSettings from './Screens/Profile/profileSettings'
 
 import changePassword from './Screens/Settings/changePassword'
 
-//test
+//Signup
 import signup from './Screens/Login/signup'
 import TEST from './Screens/Login/TEST'
 import signupEmail from './Screens/Login/signupEmail'
@@ -36,6 +37,7 @@ import signupGender from './Screens/Login/signupGender'
 import signupProfilePic from './Screens/Login/signupProfilePic'
 import signupPhotoAlbum from './Screens/Login/signupPhotoAlbum'
 import login from './Screens/Login/login'
+import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 var HEIGHT = Dimensions.get('window').height;
 
@@ -114,6 +116,7 @@ export default function App() {
             user.onboard ?
               <>
                 <Stack.Screen name='Main' component={Main} />
+                <Stack.Screen name='connectFilter' component={connectFilter} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, cardStyle: {height:HEIGHT*0.5}}} />
                 <Stack.Screen name='profileSettings' component={profileSettings} />
                 <Stack.Screen name="changePassword" component={changePassword} />
 
