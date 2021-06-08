@@ -18,6 +18,15 @@ export default function profileSettings({navigation,route }) {
         {name:'Privacy', icon:'shield'},
         {name:'Logout', icon:'times'}
     ])
+
+    const selectSettings = (name) => {
+        if (name == 'Change Password'){
+            navigation.navigate('changePassword')
+        }
+        else if(name == 'Logout'){
+            setUser(null);
+        }
+    }
    
 
    
@@ -33,7 +42,7 @@ export default function profileSettings({navigation,route }) {
                         keyExtractor={()=> Math.random()*100}
                         style={{ paddingLeft:WIDTH*0.04,paddingRight:WIDTH*0.04}}
                         renderItem = {({item})=>(
-                            <TouchableOpacity onPress={()=> navigation.navigate('changePassword')} style={{width:WIDTH*0.92, height:HEIGHT*0.07,borderBottomWidth:0.5,  borderBottomColor:'#e0e0e0', flexDirection:'row', alignItems:'center' }}>
+                            <TouchableOpacity onPress={selectSettings(item.name)} style={{width:WIDTH*0.92, height:HEIGHT*0.07,borderBottomWidth:0.5,  borderBottomColor:'#e0e0e0', flexDirection:'row', alignItems:'center' }}>
                                 <FontAwesome name={item.icon} color='#e0e0e0' size={30} />
                                 <Text style={{fontFamily:'OpenSans_400Regular', color:'#545454', fontSize:15, marginLeft:WIDTH*0.075}}>{item.name}</Text>
                             </TouchableOpacity>

@@ -116,7 +116,7 @@ export default function App() {
             user.onboard ?
               <>
                 <Stack.Screen name='Main' component={Main} />
-                <Stack.Screen name='connectFilter' component={connectFilter} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, cardStyle: {height:HEIGHT*0.5git }}} />
+                <Stack.Screen name='connectFilter' component={connectFilter} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, cardStyle: {height:HEIGHT*0.5 }}} />
                 <Stack.Screen name='profileSettings' component={profileSettings} />
                 <Stack.Screen name="changePassword" component={changePassword} />
 

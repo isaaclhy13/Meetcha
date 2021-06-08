@@ -90,8 +90,10 @@ export default function signupPhotoAlbum({navigation, route}) {
                     </TouchableOpacity>
                 )}
                 />
+            <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#d4d4d4',}}>Select at least 3 images</Text>
 
             </View>
+
 
             <TouchableOpacity disabled={photoAlbum == '' ? true : false} onPress={checkPhotoAlbum} style={{position:'absolute', bottom:HEIGHT*0.05, height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: photoAlbum == '' ? '#e3e3e3' : '#FEC357', alignSelf:'center', justifyContent:'center'}}>
                  <Text style={{fontSize:25, fontFamily:'OpenSans_700Bold', color: 'white', alignSelf:'center'}}>Next</Text>

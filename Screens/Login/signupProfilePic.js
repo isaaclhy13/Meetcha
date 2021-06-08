@@ -12,7 +12,7 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupProfilePic({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [profilePic, setProfilePic] = useState('t');
+    const [profilePic, setProfilePic] = useState('');
 
     const checkProfilePic = () => {
       //Test here 
