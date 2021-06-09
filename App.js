@@ -113,7 +113,7 @@ export default function App() {
         >
 
           {user ?
-            user.onboard ?
+            user.onboard == true ?
               <>
                 <Stack.Screen name='Main' component={Main} />
                 <Stack.Screen name='connectFilter' component={connectFilter} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, cardStyle: {height:HEIGHT*0.5 }}} />
@@ -124,18 +124,18 @@ export default function App() {
               </>
               :
               <>
-                <Stack.Screen name='TEST' component={TEST} />
+               
+              <Stack.Screen name="signupFirstName" component={signupFirstName} />
+              <Stack.Screen name="signupLastName" component={signupLastName} />
+              <Stack.Screen name="signupGender" component={signupGender} />
+              <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
+              <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
               </>
             :
             <>
               <Stack.Screen name="signup" component={signup} />
               <Stack.Screen name="signupEmail" component={signupEmail} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}} />
               <Stack.Screen name="signupPassword" component={signupPassword} />
-              <Stack.Screen name="signupFirstName" component={signupFirstName} />
-              <Stack.Screen name="signupLastName" component={signupLastName} />
-              <Stack.Screen name="signupGender" component={signupGender} />
-              <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
-              <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
               <Stack.Screen name="login" component={login} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}}/>
 
 

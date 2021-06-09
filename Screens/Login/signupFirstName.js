@@ -12,21 +12,24 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupFirstName({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [firstName, setFirstName] = useState('');
+    const [firstName, setFirstName] = useState(user.firstName == null ? '' : user.firstName);
 
     const checkFirstName = () => {
         if(/\d/.test(firstName)){
             alert('First name cannot contain numbers.');
         }
         else{
-            navigation.navigate('signupLastName', {email:route.params.email,password: route.params.password, firstName: firstName})
+            firebase.firestore().collection('users').doc(user.id).update({
+                firstName : firstName
+            })
+            navigation.navigate('signupLastName')
         }
     }
     return (
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>
            <KeyboardAvoidingView>
             <View style={{ height:HEIGHT*0.1,width:WIDTH,justifyContent:'center', paddingLeft:WIDTH*0.05}}>
-                <TouchableOpacity onPress={()=>navigation.goBack()}>
+                <TouchableOpacity onPress={setUser(null)}>
                     <FontAwesome name='angle-left' size={40} color='#545454' />
                 </TouchableOpacity>
             </View>

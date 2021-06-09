@@ -5,8 +5,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as ImagePicker from 'expo-image-picker';
 
 
+
 import { UserContext } from '../Utils/context'
-import { FlatList } from 'react-native-gesture-handler';
 
 var HEIGHT = Dimensions.get('window').height;
 var WIDTH = Dimensions.get('window').width;
@@ -15,40 +15,17 @@ export default function signupPhotoAlbum({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
     const [photoAlbum, setPhotoAlbum] = useState('f');
 
+    useEffect(()=>{
+        firebase.firestore().collection('users').doc(user.id).update({
+            onboard : true
+        }) 
+    })
+
     const checkPhotoAlbum = () => {
-     
-      //createAccount
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(route.params.email, route.params.password)
-            .then((response) => {
-                const uid = response.user.uid
-                const data = {
-                    id: uid,
-                    email: route.params.email,
-                    onboard: true,
-                    profilePic: null,
-                    available: false,
-                    firstName: route.params.firstName,
-                    lastName: route.params.lastName,
-                    gender: null,
-                    profilePic: null,
-                    photoAlbum: [],
-                };
-                const usersRef = firebase.firestore().collection('users')
-                usersRef
-                    .doc(uid)
-                    .set(data)
-                    .then(() => {
-                        setUser(data);
-                    })
-                    .catch((error) => {
-                        alert(error)
-                    });
-            })
-            .catch((error) => {
-                alert(error)
-            });
+        firebase.firestore().collection('users').doc(user.id).update({
+            onboard : true
+        })
+       
     }
 
     const data = ([
@@ -79,7 +56,8 @@ export default function signupPhotoAlbum({navigation, route}) {
 
 
             <View style={{height:HEIGHT*0.4, width:WIDTH, marginTop:HEIGHT*0.03, alignItems:'center', alignContent:'center'}}>
-                <FlatList
+           
+                {/* <FlatList
                 data={data}
                 keyExtractor ={(value,)=> Math.random()*100}
                 numColumns = {3}
@@ -89,7 +67,7 @@ export default function signupPhotoAlbum({navigation, route}) {
                         <FontAwesome name='plus-circle' color='white' size={30} style={{alignSelf:'center'}}/>
                     </TouchableOpacity>
                 )}
-                />
+                /> */}
             <Text style={{fontSize:15, fontFamily:'OpenSans_400Regular', color:'#d4d4d4',}}>Select at least 3 images</Text>
 
             </View>

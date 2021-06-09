@@ -12,11 +12,21 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupProfilePic({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [profilePic, setProfilePic] = useState('');
+    const [profilePic, setProfilePic] = useState(user.profilePic == null ? '' : user.profilePic);
 
     const checkProfilePic = () => {
       //Test here 
-      navigation.navigate('signupPhotoAlbum',{email:route.params.email,password: route.params.password, firstName: route.params.firstName, lastName:route.params.lastName, gender:route.params.gender, profilePic:profilePic})
+      if(profilePic != null){
+          uriToBlob(profilePic).then((result) =>
+              uploadToFirebase(result)
+          ).then(() => {
+              updateDatabase()
+              console.log("File uploaded");
+          }).catch((error) => {
+              throw error;
+          });
+        navigation.navigate('signupPhotoAlbum')
+      }
     }
       const pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -30,6 +40,53 @@ export default function signupProfilePic({navigation, route}) {
           setProfilePic(result.uri);
         }
       };
+      const uriToBlob = (uri) => {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                // return the blob
+                resolve(xhr.response);
+            };
+            xhr.onerror = function () {
+                // something went wrong
+                reject(new Error('uriToBlob failed'));
+            };
+            // this helps us get a blob
+            xhr.responseType = 'blob';
+            xhr.open('GET', uri, true);
+            xhr.send(null);
+        });
+      }
+      const uploadToFirebase = (blob) => {
+        return new Promise((resolve, reject) => {
+            var storageRef = firebase.storage().ref(user.id + '/profilePic');
+
+            storageRef.child('profilePic').put(blob, {
+                contentType: 'image/jpeg'
+            }).then((snapshot) => {
+                blob.close();
+                resolve(snapshot);
+            }).catch((error) => {
+                reject(error);
+            })
+        });
+      }
+      const updateDatabase = () => {
+        firebase.storage().ref(user.id + '/profilePic').child('profilePic').getDownloadURL().then(function (url) {
+            var xhr = new XMLHttpRequest();
+            xhr.responseType = 'blob';
+            xhr.onload = function (event) {
+                const blob = xhr.response;
+            };
+            xhr.open('GET', url);
+            xhr.send();
+            firebase.firestore().collection('users').doc(user.id).update({
+                profilePic: url
+            })
+        })
+       
+      }
+
     
     return (
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>

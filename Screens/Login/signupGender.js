@@ -12,13 +12,16 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupGender({navigation,route }) {
     const [user, setUser] = useContext(UserContext);
-    const [gender, setGender] = useState('');
+    const [gender, setGender] = useState(user.gender == null ? '' : user.gender);
    
    
 
     const selectGender = () => {
         if(gender != ''){
-            navigation.navigate('signupProfilePic',{password: route.params.password, firstName: route.params.firstName, lastName:route.params.lastName, gender:gender, email:route.params.email, gender:gender})
+            firebase.firestore().collection('users').doc(user.id).update({
+                gender : gender
+            })
+            navigation.navigate('signupProfilePic')
         }
     }
     return (

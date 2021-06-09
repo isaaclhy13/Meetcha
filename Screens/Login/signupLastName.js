@@ -12,14 +12,17 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupLastName({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [lastName, setLastName] = useState('');
+    const [lastName, setLastName] = useState(user.lastName == null ? '' : user.lastName);
 
     const checkLastName = () => {
         if(/\d/.test(lastName)){
             alert('First name cannot contain numbers.');
         }
         else{
-            navigation.navigate('signupGender',{email:route.params.email ,password: route.params.password, firstName: route.params.firstName, lastName:lastName,})
+            firebase.firestore().collection('users').doc(user.id).update({
+                lastName :lastName
+            })
+            navigation.navigate('signupGender')
         }
     }
     return (

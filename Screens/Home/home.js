@@ -85,7 +85,7 @@ export default function home({navigation}){
       <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
         <View style={{ flex: 1,justifyContent:'center'}}>
             <TouchableOpacity onPress={()=> navigation.navigate('connectFilter')} style={{position:'absolute',top:0, width:WIDTH, height:HEIGHT*0.1, justifyContent:'center'}}> 
-              <FontAwesome name = 'bars' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
+              <FontAwesome name = 'sort' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
             </TouchableOpacity>
         
       

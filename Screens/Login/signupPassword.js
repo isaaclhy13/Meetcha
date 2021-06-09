@@ -31,9 +31,40 @@ export default function signupPassword({navigation, route}) {
             setConfirmPassword('')
         }
         else{
-            navigation.navigate('signupFirstName', {password:password,email:route.params.email})
+            firebase
+            .auth()
+            .createUserWithEmailAndPassword(route.params.email, password)
+            .then((response) => {
+            const uid = response.user.uid
+            const data = {
+                id: uid,
+                email: route.params.email,
+                onboard: false,
+                profilePic: null,
+                available: false,
+                firstName: null,
+                lastName: null,
+                gender: null,
+                profilePic: null,
+                photoAlbum: [],
+            };
+            const usersRef = firebase.firestore().collection('users')
+            usersRef
+            .doc(uid)
+            .set(data)
+            .then(() => {
+                setUser(data);
+            })
+            .catch((error) => {
+                alert(error)
+            });
+            })
+            .catch((error) => {
+            alert(error)
+            });
         }
     }
+    
     return (
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>
            <KeyboardAvoidingView>
