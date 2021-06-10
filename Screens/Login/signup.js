@@ -8,9 +8,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 var HEIGHT = Dimensions.get('window').height;
 var WIDTH = Dimensions.get('window').width;
 export default function signup({navigation}) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState();
-    const [user, setUser] = useContext(UserContext);
+const [user, setUser] = useContext(UserContext);
 
 
 

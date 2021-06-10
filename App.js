@@ -37,7 +37,6 @@ import signupGender from './Screens/Login/signupGender'
 import signupProfilePic from './Screens/Login/signupProfilePic'
 import signupPhotoAlbum from './Screens/Login/signupPhotoAlbum'
 import login from './Screens/Login/login'
-import { ScreenHeight } from 'react-native-elements/dist/helpers';
 
 var HEIGHT = Dimensions.get('window').height;
 
@@ -113,7 +112,7 @@ export default function App() {
         >
 
           {user ?
-            user.onboard == true ?
+            user.onboard ?
               <>
                 <Stack.Screen name='Main' component={Main} />
                 <Stack.Screen name='connectFilter' component={connectFilter} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, cardStyle: {height:HEIGHT*0.5 }}} />
@@ -130,9 +129,11 @@ export default function App() {
               <Stack.Screen name="signupGender" component={signupGender} />
               <Stack.Screen name="signupProfilePic" component={signupProfilePic} />
               <Stack.Screen name="signupPhotoAlbum" component={signupPhotoAlbum} />
+              
               </>
             :
             <>
+           
               <Stack.Screen name="signup" component={signup} />
               <Stack.Screen name="signupEmail" component={signupEmail} options={{cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS}} />
               <Stack.Screen name="signupPassword" component={signupPassword} />

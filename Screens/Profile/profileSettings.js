@@ -22,9 +22,7 @@ export default function profileSettings({navigation,route }) {
         if (name == 'Change Password'){
             navigation.navigate('changePassword')
         }
-        if (name =='Logout'){
-            setUser(null)
-        }
+       
     }
    
 

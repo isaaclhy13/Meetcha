@@ -12,7 +12,7 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupLastName({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [lastName, setLastName] = useState(user.lastName == null ? '' : user.lastName);
+    const [lastName, setLastName] = useState('');
 
     const checkLastName = () => {
         if(/\d/.test(lastName)){

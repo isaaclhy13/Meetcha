@@ -12,7 +12,7 @@ var WIDTH = Dimensions.get('window').width;
 
 export default function signupFirstName({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [firstName, setFirstName] = useState(user.firstName == null ? '' : user.firstName);
+    const [firstName, setFirstName] = useState('');
 
     const checkFirstName = () => {
         if(/\d/.test(firstName)){
@@ -29,7 +29,7 @@ export default function signupFirstName({navigation, route}) {
         <SafeAreaView style={{height: HEIGHT, width: WIDTH, }}>
            <KeyboardAvoidingView>
             <View style={{ height:HEIGHT*0.1,width:WIDTH,justifyContent:'center', paddingLeft:WIDTH*0.05}}>
-                <TouchableOpacity onPress={setUser(null)}>
+                <TouchableOpacity onPress={()=>setUser(null)}>
                     <FontAwesome name='angle-left' size={40} color='#545454' />
                 </TouchableOpacity>
             </View>

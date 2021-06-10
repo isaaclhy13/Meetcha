@@ -40,13 +40,6 @@ export default function signupPassword({navigation, route}) {
                 id: uid,
                 email: route.params.email,
                 onboard: false,
-                profilePic: null,
-                available: false,
-                firstName: null,
-                lastName: null,
-                gender: null,
-                profilePic: null,
-                photoAlbum: [],
             };
             const usersRef = firebase.firestore().collection('users')
             usersRef
