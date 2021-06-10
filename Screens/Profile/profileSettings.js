@@ -22,6 +22,9 @@ export default function profileSettings({navigation,route }) {
         if (name == 'Change Password'){
             navigation.navigate('changePassword')
         }
+        else if( name == 'Logout'){
+            setUser(null)
+        }
        
     }
    
@@ -36,7 +39,7 @@ export default function profileSettings({navigation,route }) {
             <View style={{width:WIDTH, height:HEIGHT*0.6, backgroundColor:'white', borderRadius:25, alignItems:'center'}}>
                         <FlatList
                         data={settings}
-                        keyExtractor={()=> Math.random()*100}
+                        keyExtractor={(item)=> Math.random()*100}
                         style={{ paddingLeft:WIDTH*0.04,paddingRight:WIDTH*0.04}}
                         renderItem = {({item})=>(
                             <TouchableOpacity onPress={()=>selectSettings(item.name)} style={{width:WIDTH*0.92, height:HEIGHT*0.07,borderBottomWidth:0.5,  borderBottomColor:'#e0e0e0', flexDirection:'row', alignItems:'center' }}>

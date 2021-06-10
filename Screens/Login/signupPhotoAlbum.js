@@ -18,7 +18,6 @@ var initialData = ([
 
 export default function signupPhotoAlbum({navigation, route}) {
     const [user, setUser] = useContext(UserContext);
-    const [photoAlbum, setPhotoAlbum] = useState('f');
     const [data, setData] = useState(initialData);
     const [image1, setImage1] = useState('');
     const [image2, setImage2] = useState('');
@@ -26,7 +25,7 @@ export default function signupPhotoAlbum({navigation, route}) {
 
     const renderItem = ({ item, index, drag, isActive }) => (
         <View style={{width:WIDTH*0.3, height:HEIGHT*0.2, borderRadius:20, justifyContent:'center'}}>
-        <TouchableOpacity onPress={() => pickImage(item.value)} onLongPress={drag} style={{width:WIDTH*0.275, height:HEIGHT*0.15, borderRadius:20, backgroundColor:'#F2F1F1', 
+        <TouchableOpacity onPress={pickImage} onLongPress={drag} style={{width:WIDTH*0.275, height:HEIGHT*0.15, borderRadius:20, backgroundColor:'#F2F1F1', 
         justifyContent:'center'}}>
             {(item.order == 1 && image1 != '') ?
             <Image source={{uri:image1}} style={{width:WIDTH*0.275, height:HEIGHT*0.15,borderRadius:20}}/>
@@ -51,6 +50,7 @@ export default function signupPhotoAlbum({navigation, route}) {
         });
     
         if (!result.cancelled) {
+            console.log(result.uri)
             if(image1 == '' ){
                 setImage1(result.uri)
             }
@@ -62,14 +62,30 @@ export default function signupPhotoAlbum({navigation, route}) {
             }
             
         }
+        console.log('Image 1 is : ' + image1);
+        console.log('Image 2 is : ' + image2);
+        console.log('Image 3 is : ' + image3);
+
     };
     
 
-    // const checkPhotoAlbum = () => {
-    //     firebase.firestore().collection('users').doc(user.id).update({
-    //         onboard : true
-    //     })
-    // }
+    const checkPhotoAlbum = () => {
+        // if(image1 != null && image2 != null & image3 != null){
+        //     firebase.firestore().collection('users').doc(user.id).update({
+        //         photoAlbum: firebase.firestore.FieldValue.arrayUnion(image1),
+        //         photoAlbum: firebase.firestore.FieldValue.arrayUnion(image2),
+        //         photoAlbum: firebase.firestore.FieldValue.arrayUnion(image3),
+        //         onboard : true
+        //     })
+        // }
+        firebase.firestore().collection('users').doc(user.id).update({
+            onboard :true
+        })
+        firebase.firestore().collection('users').doc(user.id).get().then((snapshot) => {
+            setUser(snapshot.data())
+            console.log(snapshot.data())
+        })
+    }
 
     
     
@@ -108,7 +124,7 @@ export default function signupPhotoAlbum({navigation, route}) {
             </View>
 
 
-            <TouchableOpacity disabled={photoAlbum == '' ? true : false} style={{position:'absolute', bottom:HEIGHT*0.05, height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: photoAlbum == '' ? '#e3e3e3' : '#FEC357', alignSelf:'center', justifyContent:'center'}}>
+            <TouchableOpacity onPress={checkPhotoAlbum} style={{position:'absolute', bottom:HEIGHT*0.05, height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: (image1 != null && image2 != null && image3 != null ) ? '#e3e3e3' : '#FEC357', alignSelf:'center', justifyContent:'center'}}>
                  <Text style={{fontSize:25, fontFamily:'OpenSans_700Bold', color: 'white', alignSelf:'center'}}>Next</Text>
             </TouchableOpacity>
            
