@@ -3,73 +3,74 @@ import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAr
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import * as Animatable from 'react-native-animatable';
 import { UserContext } from '../Utils/context'
+import { firebase } from '../../config'
 
 
 
 
 var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
-export default function home({navigation}){
+export default function home({ navigation }) {
   //Timer 
   const [time, setTime] = useState(0);
   const [timerOn, setTimerOn] = useState(false);
   const [user, setUser] = useContext(UserContext);
 
 
-  useEffect(()=>{
+  useEffect(() => {
     var interval = null;
-    if(timerOn){
-      interval = setInterval(()=>{
-        setTime(time => time +1)
+    if (timerOn) {
+      interval = setInterval(() => {
+        setTime(time => time + 1)
       }, 1000)
     }
-    else{
+    else {
       clearInterval(interval)
     }
     return () => clearInterval(interval);
-  },[timerOn])
+  }, [timerOn])
 
   const connectY = useState(new Animated.Value(0))[0]; //Up and down animation of the connect View 
   const connectSize = useState(new Animated.Value(1))[0]; //The size scaling animation of the Connect View 
   const searchingTextOpacity = useState(new Animated.Value(0))[0];  //The opacity of the view Containing 'Seaching...' and stopWatch
   const [connect, setConnet] = useState(false); //false if user haven't connect 
-  const connectAnim = () =>{
-    if(connect == false){
+  const connectAnim = () => {
+    if (connect == false) {
       Animated.parallel([
-        Animated.spring(connectY,{
-          toValue: HEIGHT*0.6,
-          duration:300,
+        Animated.spring(connectY, {
+          toValue: HEIGHT * 0.6,
+          duration: 300,
           useNativeDriver: false
         }),
-        Animated.timing(connectSize,{
-          toValue:0.5,
-          duration:300,
+        Animated.timing(connectSize, {
+          toValue: 0.5,
+          duration: 300,
           useNativeDriver: true
         }),
-        Animated.timing(searchingTextOpacity,{
-          toValue:1,
-          duration:250,
+        Animated.timing(searchingTextOpacity, {
+          toValue: 1,
+          duration: 250,
           useNativeDriver: true
         })
-        ]).start()
-        setConnet(true);
-        setTimerOn(true);
+      ]).start()
+      setConnet(true);
+      setTimerOn(true);
     }
-    else{
+    else {
       Animated.parallel([
-        Animated.timing(connectY,{
+        Animated.timing(connectY, {
           toValue: 0,
-          duration:300,
+          duration: 300,
           useNativeDriver: false
         }),
-        Animated.timing(connectSize,{
-          toValue:1,
-          duration:300,
+        Animated.timing(connectSize, {
+          toValue: 1,
+          duration: 300,
           useNativeDriver: true
         }),
-        Animated.timing(searchingTextOpacity,{
-          toValue:0,
-          duration:150,
+        Animated.timing(searchingTextOpacity, {
+          toValue: 0,
+          duration: 150,
           useNativeDriver: true
         })
       ]).start()
@@ -78,35 +79,64 @@ export default function home({navigation}){
       setConnet(false);
       setTimerOn(false);
       setTime(0);
-      }
-    } 
+    }
+  }
 
-    return (
-      <SafeAreaView style={{flex:1, backgroundColor:'white'}}>
-        <View style={{ flex: 1,justifyContent:'center'}}>
-            <TouchableOpacity onPress={()=> navigation.navigate('connectFilter')} style={{position:'absolute',top:0, width:WIDTH, height:HEIGHT*0.1, justifyContent:'center'}}> 
-              <FontAwesome name = 'sort' size={30} color='#FEC357'style={{alignSelf:'flex-end', marginRight:WIDTH*0.1}}/>
-            </TouchableOpacity>
-        
-      
-          <Animated.View style={{position:'absolute', alignSelf:'center',alignItems:'center', opacity: searchingTextOpacity}}>
-            <Animatable.Text useNativeDriver={true} animation='pulse' direction="alternate" easing='ease-in-out' iterationCount={'infinite'} duration={1000}
-            style={{fontSize:30, color:'#FEC357', fontFamily:'OpenSans_700Bold'}}>Searching...
+  const connectDatabase = () => {
+    const connectRef = firebase.firestore().collection('connect')
+
+    connectRef
+      .doc(user.id).set({
+        id: user.id,
+        date: new Date()
+      })
+      .then(() => {
+        console.log("Document successfully written!");
+        connectRef.where("id", "!=", user.id).limit(1).get().then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            console.log("Matched with: ", doc.id)
+          })
+        })
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  }
+
+  const cleanup = () => {
+    firebase.firestore().collection('connect').doc(user.id).delete().then(() => {
+      console.log("Document successfully deleted!");
+    }).catch((error) => {
+      console.error("Error removing document: ", error);
+    });
+  }
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: 'white' }}>
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <TouchableOpacity onPress={() => navigation.navigate('connectFilter')} style={{ position: 'absolute', top: 0, width: WIDTH, height: HEIGHT * 0.1, justifyContent: 'center' }}>
+          <FontAwesome name='sort' size={30} color='#FEC357' style={{ alignSelf: 'flex-end', marginRight: WIDTH * 0.1 }} />
+        </TouchableOpacity>
+
+
+        <Animated.View style={{ position: 'absolute', alignSelf: 'center', alignItems: 'center', opacity: searchingTextOpacity }}>
+          <Animatable.Text useNativeDriver={true} animation='pulse' direction="alternate" easing='ease-in-out' iterationCount={'infinite'} duration={1000}
+            style={{ fontSize: 30, color: '#FEC357', fontFamily: 'OpenSans_700Bold' }}>Searching...
             </Animatable.Text>
-            <Text style={{fontSize:20, color:'#FEC357', fontFamily:'OpenSans_400Regular'}}>{Math.floor(parseInt(time/60).toFixed(0))}:{(Math.floor(parseInt(time/10)))%6}{parseInt(time%10)}</Text>
-          </Animated.View>
-        
-          
-          <Animated.View  style={{height:140, width:140, marginTop: connectY, alignSelf:'center'}} >
-            <TouchableOpacity  activeOpacity={0.7} onPress={connectAnim} style={[{transform:[{scale:connectSize,} ]}, {backgroundColor: connect ? '#E0E0E0' :'#FEC357',height:140, width:140,borderRadius:70,justifyContent:'center', alignItems:'center',}]}>
-              {connect ?
-                <FontAwesome name='times' size={70} color={'white'} />
-                :
-                <Text style={{fontSize:25, color:'white', fontFamily:'OpenSans_700Bold'}}>Conenect</Text>
-              }
-            </TouchableOpacity>
-          </Animated.View> 
-        </View>
-      </SafeAreaView>
-      );
+          <Text style={{ fontSize: 20, color: '#FEC357', fontFamily: 'OpenSans_400Regular' }}>{Math.floor(parseInt(time / 60).toFixed(0))}:{(Math.floor(parseInt(time / 10))) % 6}{parseInt(time % 10)}</Text>
+        </Animated.View>
+
+
+        <Animated.View style={{ height: 140, width: 140, marginTop: connectY, alignSelf: 'center' }} >
+          <TouchableOpacity activeOpacity={0.7} onPress={() => { connectAnim(); if (!connect) { connectDatabase() } else cleanup() }} style={[{ transform: [{ scale: connectSize, }] }, { backgroundColor: connect ? '#E0E0E0' : '#FEC357', height: 140, width: 140, borderRadius: 70, justifyContent: 'center', alignItems: 'center', }]}>
+            {connect ?
+              <FontAwesome name='times' size={70} color={'white'} />
+              :
+              <Text style={{ fontSize: 25, color: 'white', fontFamily: 'OpenSans_700Bold' }}>Connect</Text>
+            }
+          </TouchableOpacity>
+        </Animated.View>
+      </View>
+    </SafeAreaView>
+  );
 }

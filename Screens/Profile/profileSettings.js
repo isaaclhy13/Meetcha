@@ -23,6 +23,7 @@ export default function profileSettings({navigation,route }) {
             navigation.navigate('changePassword')
         }
         else if( name == 'Logout'){
+            firebase.auth().signOut()
             setUser(null)
         }
        
