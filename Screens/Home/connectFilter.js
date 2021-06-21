@@ -1,13 +1,28 @@
 import React, { useState, useContext, useEffect, useCallback, useRef } from 'react';
 import { Animated, Image, Modal, Text, TextInput, TouchableOpacity, View, SafeAreaView, Dimensions, StyleSheet, Switch, } from 'react-native'
 import Slider from '@react-native-community/slider';
-import RangeSlider from 'rn-range-slider';
+import MultiSlider from '@ptomasroos/react-native-multi-slider'
+import firebase from '../../config'
+import { UserContext } from '../Utils/context'
+
 
 var WIDTH = Dimensions.get('window').width;
 var HEIGHT = Dimensions.get('window').height;
 export default function connectFilter({navigation}){
+    const [user, setUser] = useContext(UserContext);
     const [filterGender, setFilterGender] = useState('All')
     const [filterDistance, setFilterDistance] = useState(10)
+    const [filterAge, setFulterAge] = useState([18, 70])
+    const changeFilterAge = (values) => setFulterAge(values)
+
+    const setFilters = () => {
+        // firebase.firestore().collection('users').doc(user.id).update({
+        //     filterGender: filterGender,
+        //     filterDistance: filterDistance,
+        //     filterAge: filterAge[0] + ':' + filterAge[1]
+        // })
+        navigation.goBack()
+    }
   
 
     return(
@@ -48,15 +63,44 @@ export default function connectFilter({navigation}){
             <View style={{height:HEIGHT*0.15, width:WIDTH, marginTop: HEIGHT*0.05, }}>
                 <View style={{flexDirection:'row', justifyContent:'space-between'}}>
                     <Text style={{fontSize:18, fontFamily:'OpenSans_600SemiBold', color:'#545454', paddingLeft:WIDTH*0.1}}>Age</Text>
-                    <Text style={{fontSize:15, fontFamily:'OpenSans_600SemiBold', color:'#cccccc',paddingRight:WIDTH*0.1}}>Up to {parseInt(filterDistance)} km away</Text>
+                    <Text style={{fontSize:15, fontFamily:'OpenSans_600SemiBold', color:'#cccccc',paddingRight:WIDTH*0.1}}>{filterAge[0]} to {filterAge[1]}</Text>
                 </View>
+                <View style={{alignSelf:'center', marginTop:HEIGHT*0.02}}>
+                <MultiSlider
+                selectedStyle={{
+                    backgroundColor: '#ffc559'
+                }}
+                trackStyle={{
+                    height: 4, borderRadius: 15, backgroundColor: 'black'
+                }}
+               
+                markerStyle={{
+                    backgroundColor: 'white',
+                    borderWidth: 0,
+                    height: Dimensions.get('window').height * 0.03,
+                    width: Dimensions.get('window').height * 0.03,
+                    borderRadius: Dimensions.get('window').height * 0.015,
+                    shadowOpacity: 0.3,
+                    shadowColor: '#545454',
+                    shadowRadius:5,
+                    marginTop: 5,
+                    }}
+                    values={[filterAge[0], filterAge[1]]}
+                    sliderLength={WIDTH*0.75}
+                    onValuesChange={changeFilterAge}
+                    min={18}
+                    max={70}
+                    allowOverlap={false}
+                   
+            />
+            </View>
                 
                 
             </View>
 
             <View style={{height:HEIGHT*0.2, width:WIDTH, marginTop: HEIGHT*0.05,}}>
                 </View>
-            <TouchableOpacity onPress={()=> navigation.goBack()} style={{position:'absolute', bottom:HEIGHT*0.05, height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: '#FEC357', alignSelf:'center', justifyContent:'center'}}>
+            <TouchableOpacity onPress={setFilters} style={{position:'absolute', bottom:HEIGHT*0.05, height:HEIGHT*0.08, width:WIDTH*0.85, borderRadius:40, backgroundColor: '#FEC357', alignSelf:'center', justifyContent:'center'}}>
                  <Text style={{fontSize:25, fontFamily:'OpenSans_700Bold', color: 'white', alignSelf:'center'}}>Done</Text>
             </TouchableOpacity>
 

@@ -3,6 +3,8 @@ import { Animated, Image, Text, TextInput, TouchableOpacity, View, SafeAreaView,
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Modal from 'react-native-modal';
 import { FlatList } from 'react-native-gesture-handler';
+import {firebase} from '../../config'
+import { UserContext } from '../Utils/context'
 
 
 
@@ -12,8 +14,18 @@ var HEIGHT = Dimensions.get('window').height;
 
 
 export default function profile({navigation}){
+    const [user, setUser] = useContext(UserContext);
     const [editModal, setEditModal] = useState();
     const [profileSettingsModal, setProfileSettingsModal] = useState(false);
+    const [userProfilePic, setUserProfilePic] = useState('');
+
+    useEffect(()=>{
+        firebase.firestore().collection.doc(user.id).get().then((doc)=>{
+            setUserProfilePic(doc.profilePic)
+        })
+        
+    })
+
 
     const settings = ([
         {name:'Change Password', icon:'lock'},
@@ -28,7 +40,9 @@ export default function profile({navigation}){
 
                 <View style={{height:HEIGHT*0.85, backgroundColor:'white', paddingTop:HEIGHT*0.1, alignItems:'center'}}>
                     <View style={{width:HEIGHT*0.2, height:HEIGHT*0.2, borderRadius:HEIGHT*0.1, marginTop:HEIGHT*0.05, backgroundColor:'#e0e0e0'}}>
-                    
+                        {userProfilePic != '' &&
+                            <Image source={{uri:userProfilePic}} style={{width:HEIGHT*0.2, height:HEIGHT*0.2, borderRadius:HEIGHT*0.1, alignSelf:'center'}}/>
+                        }
                     </View>
                 </View>
 
